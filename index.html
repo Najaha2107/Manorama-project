@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Ticker Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">EDITOR WORKSPACE</p>
+      <h1>News Ticker Generator</h1>
+      <p class="subtitle">Turn announcements into concise, reviewable broadcast tickers.</p>
+    </div>
+    <span class="header-pill">AI-assisted editing</span>
+  </header>
+
+  <main class="container">
+    <section class="panel status-panel" aria-labelledby="systemStatusHeading">
+      <div class="section-heading">
+        <div>
+          <h2 id="systemStatusHeading">System status</h2>
+          <p>Live connection checks for the application server and AI configuration.</p>
+        </div>
+        <button id="refreshStatusBtn" class="secondary" type="button">Refresh status</button>
+      </div>
+      <div class="status-grid">
+        <article class="status-card">
+          <span class="status-label">Application server</span>
+          <div class="status-value"><span id="serverStatusDot" class="status-dot checking"></span><strong id="serverStatusText">Checking…</strong></div>
+          <small id="serverStatusDetail">Connecting to local server</small>
+        </article>
+        <article class="status-card">
+          <span class="status-label">AI configuration</span>
+          <div class="status-value"><span id="aiStatusDot" class="status-dot checking"></span><strong id="aiStatusText">Checking…</strong></div>
+          <small id="aiStatusDetail">Checking whether an API key is configured</small>
+        </article>
+        <article class="status-card">
+          <span class="status-label">Server uptime</span>
+          <div class="status-value"><strong id="serverUptime">—</strong></div>
+          <small id="serverStartedAt">Waiting for server response</small>
+        </article>
+      </div>
+      <p id="dashboardMessage" class="message" role="status" aria-live="polite">Checking system status…</p>
+      <p class="status-note">“AI configured” means an API key exists in the server environment; it does not guarantee the key has valid access or available billing.</p>
+    </section>
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>1. Add announcements</h2>
+          <p>Paste one announcement, or import a TXT, CSV, or JSON file.</p>
+        </div>
+      </div>
+      <label for="newsInput">Original announcement</label>
+      <textarea id="newsInput" rows="4" placeholder="Example: The college technology festival welcomed 500 students and showcased several AI projects."></textarea>
+      <div class="button-row">
+        <button id="addNewsBtn" class="primary">Add announcement</button>
+        <label class="file-button" for="importFile">Import TXT / CSV / JSON</label>
+        <input id="importFile" type="file" accept=".txt,.csv,.json,text/plain,text/csv,application/json">
+      </div>
+      <p id="inputMessage" class="message" role="status"></p>
+      <div id="announcementList" class="announcement-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>2. Generate tickers</h2>
+          <p>Generate a ticker for each announcement that has not been processed yet.</p>
+        </div>
+      </div>
+      <div class="button-row">
+        <button id="generateBtn" class="primary">Generate tickers</button>
+        <button id="exportApprovedBtn" class="secondary">Export approved JSON</button>
+      </div>
+      <p id="generationMessage" class="message" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>3. Review and edit</h2>
+          <p>Check source drift, edit wording, generate alternatives, and approve the final ticker.</p>
+        </div>
+        <span id="tickerCount" class="count-pill">0 tickers</span>
+      </div>
+      <div id="tickerList" class="ticker-list">
+        <div class="empty-state">Your generated tickers will appear here.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>AI-generated text can contain mistakes. Always verify tickers against their original announcements before approval.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
